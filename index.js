@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const intents = new Discord.Intents(32767);
 const client = new Discord.Client({ intents });
-const express = require('express');
 const fs = require('fs');
 require('dotenv').config();
 
@@ -61,7 +60,7 @@ fs.readdirSync(`./slashcommands/`).forEach(dir => {
 // EVENT HANDLER
 fs.readdirSync('./events/').forEach(file => {
   var jsFiles = fs.readdirSync('./events/').filter(f => f.split(".").pop() === "js")
-  if(jsFiles.length <= 0) return console.log("[EVENT HANDLER] - ~~Yet to be loaded or no avail~~");
+  if (jsFiles.length <= 0) return console.log("[EVENT HANDLER] - ~~Yet to be loaded or no avail~~");
 
   jsFiles.forEach(file => {
     const eventGet = require(`./events/${file}`)
@@ -73,22 +72,5 @@ fs.readdirSync('./events/').forEach(file => {
     };
   });
 });
-
-try {
-  const server = express();
-  server.all("/", (req, res) => {
-    res.send("Bot is running!")
-  })
-  
-  function keepAlive() {
-    server.listen(3000, () => {
-      console.log("Server is ready.")
-    })
-  }
-
-  keepAlive();
-} catch (error) {
-  console.log(error)
-}
 
 client.login(process.env.TOKEN);
