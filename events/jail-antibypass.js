@@ -7,7 +7,7 @@ client.on('guildMemberRemove', async member => {
     let memberId = await member.guild.channels.cache.find(c => c.topic === `${member.id}`)
     if(memberId) {
         if(memberId.parentId === faithchatt.parentId.jail) {
-            let data = await schema1.findOne({ guildId: member.guild.id });
+            let data = await schema.findOne({ guildId: member.guild.id });
             if(!data) return;
         }
     }
